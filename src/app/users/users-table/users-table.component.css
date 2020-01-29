@@ -2,7 +2,7 @@
 .search-box{
   position: fixed;
   width: 100%;
-  background: #aaa;
+  background: #ccc;
   top: 0;
 }
 
@@ -11,5 +11,26 @@
 }
 
 .table-rows{
+  cursor: pointer;
+}
+
+input:focus{
+  outline: none;
+}
+
+.hide{
+  display: none;
+}
+
+.show{
+  display: block!important;
+}
+
+
+.pagination{
+  margin-bottom: 50px;
+}
+
+li{
   cursor: pointer;
 }

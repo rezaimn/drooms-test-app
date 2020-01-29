@@ -12,6 +12,10 @@ import {element} from 'protractor';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent implements OnInit {
+  totalElements = 0;
+  currentPage = 0;
+  perPage = 12;
+  lastPage=0;
   /**
    * stores list of users
    */
@@ -20,6 +24,10 @@ export class UsersTableComponent implements OnInit {
    * stores list of filtered users
    */
   usersFilteredList: UserModel[] = [];
+  /**
+   * it stores the list of users that we want to show
+   */
+  userListToShow = [];
   /**
    * stores input text, but it is one character behind the real search input,
    * and we are using this advantage for ignoring search entered spaces.
@@ -66,6 +74,23 @@ export class UsersTableComponent implements OnInit {
     this.getUsers();
   }
 
+
+  prevPage() {
+    if (this.currentPage > 0) {
+      this.currentPage -= 1;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalElements / this.perPage) {
+      this.currentPage += 1;
+    }
+  }
+
+  getPageData(pageNo) {
+    this.currentPage = pageNo;
+  }
+
   /**
    * get user list from our json file
    */
@@ -75,6 +100,7 @@ export class UsersTableComponent implements OnInit {
         this.userList = res;
         // copy all users in filtered user list to show all the list in the firs view.
         this.usersFilteredList = [...this.userList];
+        this.paginateUserList();
       }
     );
   }
@@ -130,6 +156,17 @@ export class UsersTableComponent implements OnInit {
         return this.checkUserFields(user, this.searchFieldsList, this.searchTextArray);
       }
     );
+    this.paginateUserList();
+  }
+
+  paginateUserList() {
+    this.userListToShow.length=0;
+    this.currentPage = 0;
+    this.totalElements = this.usersFilteredList.length;
+    for (let i = 0; i < this.totalElements / this.perPage; i++) {
+      this.userListToShow.push(this.usersFilteredList.slice(i * this.perPage, (i + 1) * this.perPage));
+    }
+    this.lastPage=this.userListToShow.length;
   }
 
   /**

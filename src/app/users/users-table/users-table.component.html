@@ -27,7 +27,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let user of usersFilteredList" class="table-rows" (click)="showSelectedUser(user)">
+  <tr *ngFor="let user of userListToShow[currentPage]" class="table-rows" (click)="showSelectedUser(user)">
     <th scope="row">{{user.index}}</th>
     <td>
       <img [src]="user.picture" height="30" width="30" alt="user-avatar"/>
@@ -43,3 +43,29 @@
   </tr>
   </tbody>
 </table>
+
+<nav aria-label="...">
+  <ul class="pagination">
+
+    <li class="page-item "  (click)="prevPage()"
+        [ngClass]="{'disabled':currentPage===0}">
+      <a class="page-link"  tabindex="-1">Previous</a>
+    </li>
+
+    <li  *ngIf="currentPage>=4"  class="page-item" disabled=""><a class="page-link">...</a></li>
+    <div *ngFor="let users of userListToShow;let i=index">
+      <li
+        class="page-item hide" (click)="getPageData(i)"
+        [ngClass]="{'active': currentPage===i,'show':(i===currentPage || i===lastPage-1 || (i<currentPage+5 && i>currentPage-5))}"><a class="page-link">{{i+1}}</a></li>
+      <li *ngIf="(currentPage<lastPage-5) && i===lastPage-2" class="page-item" disabled=""><a class="page-link">...</a></li>
+    </div>
+
+
+
+    <li class="page-item"  (click)="nextPage()"
+        [ngClass]="{'disabled':this.currentPage >= lastPage-1}">
+      <a class="page-link" >Next</a>
+    </li>
+
+  </ul>
+</nav>
