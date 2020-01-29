@@ -1,0 +1,15 @@
+
+.search-box{
+  position: fixed;
+  width: 100%;
+  background: #aaa;
+  top: 0;
+}
+
+.table{
+  margin-top: 80px;
+}
+
+.table-rows{
+  cursor: pointer;
+}

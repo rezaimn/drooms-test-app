@@ -1,0 +1,45 @@
+<div class="row m-0 search-box">
+  <div class="col-12">
+    <div class=" mt-3">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="search-input"
+          name="search-input"
+          value=""
+          (input)="searchInputToArray($event)"
+          aria-describedby="search"
+          placeholder="Search User"
+        >
+      </div>
+    </div>
+
+  </div>
+
+</div>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col" *ngFor="let title of colNames">
+      {{title}}
+    </th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let user of usersFilteredList" class="table-rows" (click)="showSelectedUser(user)">
+    <th scope="row">{{user.index}}</th>
+    <td>
+      <img [src]="user.picture" height="30" width="30" alt="user-avatar"/>
+    </td>
+    <td>{{user.name}}</td>
+    <td>{{user.age}}</td>
+    <td>{{user.eyeColor}}</td>
+    <td>{{user.gender}}</td>
+    <td>{{user.company}}</td>
+    <td>{{user.email}}</td>
+    <td>{{user.phone}}</td>
+    <td>{{user.address}}</td>
+  </tr>
+  </tbody>
+</table>

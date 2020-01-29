@@ -1,0 +1,92 @@
+<div class="container">
+  <div class="card m-5">
+    <div class="card-header">
+      <div class="card-title">
+        <h3 class="m-4">User Details</h3>
+      </div>
+      <hr>
+      <div class="card-body">
+        <div class="row mb-5">
+          <div class="col-6">
+            <img [src]="selectedUser.picture" height="120" alt="User Photo"/>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-6 mb-2">
+            <label>
+              <strong> Full Name: </strong>  {{selectedUser.name}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong>Gender: </strong> {{selectedUser.gender}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Age: </strong>  {{selectedUser.age}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Eye Color: </strong> {{selectedUser.eyeColor}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Company: </strong> {{selectedUser.company}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Balance: </strong> {{selectedUser.balance}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Email:</strong> {{selectedUser.email}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong>Phone:</strong>  {{selectedUser.phone}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Address:</strong>  {{selectedUser.address}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Register Date:</strong>  {{selectedUser.registered}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+              <strong> Latitude: </strong>{{selectedUser.latitude}}
+            </label>
+          </div>
+
+          <div class="col-6  mb-2">
+            <label>
+             <strong> Longitude:</strong> {{selectedUser.longitude}}
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
