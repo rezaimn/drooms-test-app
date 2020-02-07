@@ -46,7 +46,10 @@
 
 <nav aria-label="...">
   <ul class="pagination">
-
+    <li class="page-item "  (click)="getPageData(0)"
+     >
+      <a class="page-link"  tabindex="-1">First</a>
+    </li>
     <li class="page-item "  (click)="prevPage()"
         [ngClass]="{'disabled':currentPage===0}">
       <a class="page-link"  tabindex="-1">Previous</a>
@@ -66,6 +69,8 @@
         [ngClass]="{'disabled':this.currentPage >= lastPage-1}">
       <a class="page-link" >Next</a>
     </li>
-
+    <li class="page-item"  (click)="getPageData(lastPage-1)">
+      <a class="page-link" >Last</a>
+    </li>
   </ul>
 </nav>

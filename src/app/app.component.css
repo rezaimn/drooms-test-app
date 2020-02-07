@@ -1,0 +1,17 @@
+.data-loader{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background:rgba(255,255,255,.7);
+
+}
+.loader-image{
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  left: 47%;
+  top: 40%;
+
+}

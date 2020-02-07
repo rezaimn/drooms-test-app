@@ -15,10 +15,9 @@ const routes: Routes = [
     component: UsersTableComponent
   },
   {
-    path: 'user-details',
+    path: 'users/:id',
     component: SelectedUserComponent
   }
-
 ];
 
 @NgModule({

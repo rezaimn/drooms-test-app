@@ -15,6 +15,7 @@ export class UsersTableComponent implements OnInit {
   totalElements = 0;
   currentPage = 0;
   perPage = 12;
+  debounceTimeout;
   lastPage=0;
   /**
    * stores list of users
@@ -95,7 +96,7 @@ export class UsersTableComponent implements OnInit {
    * get user list from our json file
    */
   getUsers() {
-    this.httpCallService.get().subscribe(
+    this.httpCallService.get(null).subscribe(
       res => {
         this.userList = res;
         // copy all users in filtered user list to show all the list in the firs view.
@@ -112,7 +113,7 @@ export class UsersTableComponent implements OnInit {
   showSelectedUser(user: UserModel) {
     // save selected user in a shared service to use in user details page
     this.dataService.selectedUser = user;
-    this.router.navigate(['/user-details']);
+    this.router.navigate([`/users/${user._id}`]);
   }
 
   /**
@@ -122,29 +123,37 @@ export class UsersTableComponent implements OnInit {
    * @param event
    */
   searchInputToArray(event) {
-    // create a array of words using space separator.
-    this.searchTextArray = event.target.value.split(' ');
-    // this condition check to make sure you are not adding a space or not deleting the last space, and if it is so ignore the search process.
-    if (event.target.value.trim().length === event.target.value.length) {
-      // making sure that we are deleting chars or the last space.
-      if (event.target.value.length < this.searchText.length) {
-        // we must be sure the deleted item is a char or is the last space, so we can ignore unnecessary search
-        if (this.searchText.trim().length === this.searchText.length) {
-          this.searchUser(this.userList);
+    if (this.debounceTimeout) {
+      clearTimeout(this.debounceTimeout);
+    }
+    this.debounceTimeout = setTimeout(() => {
+
+
+      // create a array of words using space separator.
+      this.searchTextArray = event.target.value.split(' ');
+      // this condition check to make sure you are not adding a space or not deleting the last space, and if it is so ignore the search process.
+      if (event.target.value.trim().length === event.target.value.length) {
+        // making sure that we are deleting chars or the last space.
+        if (event.target.value.length < this.searchText.length) {
+          // we must be sure the deleted item is a char or is the last space, so we can ignore unnecessary search
+          if (this.searchText.trim().length === this.searchText.length) {
+            this.searchUser(this.userList);
+          }
+        } else {
+          // if we are adding new chars so we dont need to search on the all users again,
+          // so we can use the last filtered version of user lists to decrease the search process steps.
+          this.searchUser(this.usersFilteredList);
         }
       } else {
-        // if we are adding new chars so we dont need to search on the all users again,
-        // so we can use the last filtered version of user lists to decrease the search process steps.
-        this.searchUser(this.usersFilteredList);
+        //make sure we are deleting characters, so we need to search on the whole users again
+        if (this.searchText.trim().length > event.target.value.trim().length) {
+          this.searchUser(this.userList);
+        }
       }
-    } else {
-      //make sure we are deleting characters, so we need to search on the whole users again
-      if (this.searchText.trim().length > event.target.value.trim().length) {
-        this.searchUser(this.userList);
-      }
-    }
-    // storing entered text to current search text
-    this.searchText = event.target.value;
+      // storing entered text to current search text
+      this.searchText = event.target.value;
+    }, 1000);
+
   }
 
   /**
